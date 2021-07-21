@@ -6,7 +6,6 @@ import dotenv from "dotenv";
 import cors from "cors";
 import path from "path";
 import CSV from "./models/csvModel.js";
-
 import csv from "csvtojson";
 
 //Database
@@ -31,6 +30,7 @@ app.get("/", (req, res) => {
   res.send("API is running....");
 });
 
+// Multer Upload Storage
 const Storage = multer.diskStorage({
   // Destination to store image
   destination: "./uploads",
@@ -62,39 +62,26 @@ const upload = multer({
 import userRouter from "./routes/userRoutes.js";
 app.use("/api/auth", userRouter);
 
-// -> Import CSV File to MongoDB database
-import importCsvData from "./importCsvData.js";
-
 app.post("/api/uploadfile", upload.single("uploadfile"), (req, res) => {
-  //importCsvData("./uploads" + req.file.filename);
   res.json({
     msg: "File uploaded/import successfully!",
     file: req.file,
   });
-  console.log(req.file);
-  //console.log(req.file.originalname);
-  const filename = req.file.path
-
-  csv().fromFile(filename).then((jsonObj) =>{
-        console.log(jsonObj);
-  })
+  //console.log(req.file);
+  const filename = req.file.path;
+  // CSV 2 JSON
+  csv()
+    .fromFile(filename)
+    .then((jsonObj) => {
+      //console.log(jsonObj);
       
+      // Import CSV File to MongoDB database
+      CSV.insertMany(jsonObj, (err, res) => {
+        if (err) throw err;
+        console.log("Documents Inserted in Database Sucessfully");
+      });
+    });
 });
-
-
-// csv()
-//     .fromFile(filePath)
-//     .then((jsonObj) => {
-//       console.log(jsonObj);
-
-//       CSV.insertMany(jsonObj, (err, res) => {
-//         if (err) throw err;
-//         console.log("Number of documents inserted: " + res.insertedCount);
-//       });
-
-//       fs.unlinkSync(filePath);
-//     });
-// };
 
 const PORT = process.env.PORT || 5000;
 
