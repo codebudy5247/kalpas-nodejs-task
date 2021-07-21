@@ -5,6 +5,9 @@ import multer from "multer";
 import dotenv from "dotenv";
 import cors from "cors";
 import path from "path";
+import CSV from "./models/csvModel.js";
+
+import csv from "csvtojson";
 
 //Database
 import connectDB from "./config/db.js";
@@ -68,7 +71,30 @@ app.post("/api/uploadfile", upload.single("uploadfile"), (req, res) => {
     msg: "File uploaded/import successfully!",
     file: req.file,
   });
+  console.log(req.file);
+  //console.log(req.file.originalname);
+  const filename = req.file.path
+
+  csv().fromFile(filename).then((jsonObj) =>{
+        console.log(jsonObj);
+  })
+      
 });
+
+
+// csv()
+//     .fromFile(filePath)
+//     .then((jsonObj) => {
+//       console.log(jsonObj);
+
+//       CSV.insertMany(jsonObj, (err, res) => {
+//         if (err) throw err;
+//         console.log("Number of documents inserted: " + res.insertedCount);
+//       });
+
+//       fs.unlinkSync(filePath);
+//     });
+// };
 
 const PORT = process.env.PORT || 5000;
 

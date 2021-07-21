@@ -1,0 +1,41 @@
+
+{
+  "msg": "File uploaded/import successfully!",
+  "file": {
+    "fieldname": "uploadfile",
+    "originalname": "customers.csv",
+    "encoding": "7bit",
+    "mimetype": "text/csv",
+    "destination": "./uploads",
+    "filename": "uploadfile_1626872849191.csv",
+    "path": "uploads/uploadfile_1626872849191.csv",
+    "size": 172
+  }
+}
+
+csv file
+{
+  fieldname: 'uploadfile',
+  originalname: 'customers.csv',
+  encoding: '7bit',
+  mimetype: 'text/csv',
+  destination: './uploads',
+  filename: 'uploadfile_1626874706370.csv',
+  path: 'uploads/uploadfile_1626874706370.csv',
+  size: 172
+}
+
+csv to json
+[
+  { _id: '1', name: 'Jack Smith', address: 'Massachusetts', age: '23' },
+  { _id: '2', name: 'Adam Johnson', address: 'New York', age: '27' },
+  {
+    _id: '3',
+    name: 'Katherin Carter',
+    address: 'Washington DC',
+    age: '26'
+  },
+  { _id: '4', name: 'Jack London', address: 'Nevada', age: '33' },
+  { _id: '5', name: 'Jason Bourne', address: 'California', age: '36' }
+]
+
