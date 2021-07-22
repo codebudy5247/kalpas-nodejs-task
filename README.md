@@ -16,7 +16,7 @@ This is a Node/Express/MongoDB REST API that uses JWT authentication. All endpoi
 
 ## Sample CSV
 ```txt
-id,name,address,age
+_id,name,address,age
 1,Jack Smith,Massachusetts,23
 2,Adam Johnson,New York,27
 3,Katherin Carter,Washington DC,26
