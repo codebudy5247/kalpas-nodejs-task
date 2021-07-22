@@ -34,8 +34,6 @@ app.get("/", (req, res) => {
 const Storage = multer.diskStorage({
   // Destination to store image
   destination: "./uploads",
-  // file.fieldname is name of the field (image)
-  // path.extname get the uploaded file extension
   filename: (req, file, cb) => {
     cb(
       null,
@@ -57,11 +55,16 @@ const upload = multer({
   },
 });
 
-//Import Routes
+//Routes
 //Auth Route
 import userRouter from "./routes/userRoutes.js";
 app.use("/api/auth", userRouter);
 
+//CRUD Apis
+import csvRouter from "./routes/csvCRUD.js"
+app.use('/api/csvData',csvRouter)
+
+//File Upload/Import 
 app.post("/api/uploadfile", upload.single("uploadfile"), (req, res) => {
   res.json({
     msg: "File uploaded/import successfully!",
