@@ -7,6 +7,7 @@ import cors from "cors";
 import path from "path";
 import CSV from "./models/csvModel.js";
 import csv from "csvtojson";
+import Auth from "./Middleware/auth.js"
 
 //Database
 import connectDB from "./config/db.js";
@@ -65,7 +66,7 @@ import csvRouter from "./routes/csvCRUD.js"
 app.use('/api/csvData',csvRouter)
 
 //File Upload/Import 
-app.post("/api/uploadfile", upload.single("uploadfile"), (req, res) => {
+app.post("/api/uploadfile",Auth, upload.single("uploadfile"), (req, res) => {
   res.json({
     msg: "File uploaded/import successfully!",
     file: req.file,

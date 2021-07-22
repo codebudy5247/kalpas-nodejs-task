@@ -1,10 +1,11 @@
 import express from "express";
 const router = express.Router();
 import CSV from "../models/csvModel.js";
+import Auth from "../Middleware/auth.js"
 
 //Get All CSV Data
 //GET/api/csvData @access Private
-router.get("/", async (req, res) => {
+router.get("/", Auth,async (req, res) => {
   try {
     const csvData = await CSV.find();
     res.json(csvData);
@@ -16,7 +17,7 @@ router.get("/", async (req, res) => {
 
 //Update CSV Data
 //PUT/api/csvData/:id @access Private
-router.put("/:id", async(req, res) => {
+router.put("/:id",Auth, async(req, res) => {
   const { _id, name, address, age } = req.body;
 
   // Build csv data object
@@ -47,7 +48,7 @@ router.put("/:id", async(req, res) => {
 
 //Delete CSV Data
 //DELETE/api/csvData/:id @access Private
-router.delete("/:id", async (req, res) => {
+router.delete("/:id",Auth, async (req, res) => {
   try {
     const csv = await CSV.findById(req.params.id);
 
